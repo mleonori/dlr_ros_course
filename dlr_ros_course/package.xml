@@ -14,6 +14,7 @@
 
   <!-- <exec_depend>dlr_vessel</exec_depend> -->
   <exec_depend>dlr_gazebo_world</exec_depend>
+  <exec_depend>dlr_sensors</exec_depend>
   <!-- <exec_depend>dlr_examples</exec_depend> -->
 
   <export>

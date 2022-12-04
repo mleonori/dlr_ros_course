@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package format="2">
 
-  <name>dlr_gazebo_world</name>
+  <name>dlr_sensors</name>
   <version>0.0.1</version>
-  <description>This is dlr_gazebo_world package. It launches a Gazebo world containing a canal and a bridge</description>
+  <description>This is dlr_sensors package.  It contains different simulated sensors (i.e. IMUs and LIDARs)</description>
 
   <author email="mattialeonori26@gmail.com">Mattia Leonori</author>
 
