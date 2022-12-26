@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="canal_bridge">
+
+    <!-- Model parameters -->
+    <xacro:arg name="model_name" default="model_name"/>
+
+    <!-- Box inertial macro -->
+    <xacro:macro name="box_inertial" params="x y z mass *origin">
+        <inertial>
+        <mass value="${mass}" />
+        <xacro:insert_block name="origin" />
+        <inertia ixx="${0.0833333 * mass * (y*y + z*z)}" ixy="0.0" ixz="0.0"
+            iyy="${0.0833333 * mass * (x*x + z*z)}" iyz="0.0"
+            izz="${0.0833333 * mass * (x*x + y*y)}" />
+        </inertial>
+    </xacro:macro>
+
+    <!-- URDF object macro -->
+    <xacro:macro name="canal_bridge" params="model_prefix">
+
+        <material name="White">
+            <color rgba="0.6 0.6 0.6 1.0"/>
+        </material>
+
+        <link name="world"/>
+        <link name="${model_prefix}main_link">
+            <!-- <xacro:box_inertial x="0.05" y="0.05" z="0.05" mass="3.0">
+                <origin xyz="0 0 0.05" rpy="0 0 0" />
+            </xacro:box_inertial> -->
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge.stl" scale="100 100 100"/>
+                    <!-- <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge1.stl" scale="1000 1000 1000"/> -->
+                    <!-- <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge1.stl" scale="0.001 0.001 0.001"/> -->
+                </geometry>
+                <material name="White"/>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0.05" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge.stl" scale="100 100 100"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${model_prefix}base_joint" type="fixed">
+            <parent link="world"/>
+            <child link="${model_prefix}main_link"/>
+        </joint>
+
+        <!-- Gazebo properties -->
+        <gazebo reference="${model_prefix}main_link">
+            <material>Gazebo/Red</material>
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+            <minDepth>0.001</minDepth>
+            <maxVel>0</maxVel>
+            <static>true</static>  
+        </gazebo>
+        
+        <gazebo>
+            <static>true</static>  
+        </gazebo>
+
+    </xacro:macro>
+
+    <!-- Create macro -->
+    <xacro:canal_bridge model_prefix="$(arg model_name)_"/>
+
+</robot>
