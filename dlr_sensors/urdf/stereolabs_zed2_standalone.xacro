@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="stereolab_zed2">
+
+    <!-- Camera arguments -->
+    <xacro:arg name="camera_name" default="stereolab_zed2_camera0" />
+    <xacro:arg name="enable_gazebo_plugin" default="true" />
+
+    <xacro:arg name="xyz" default="0 0 0" />
+    <xacro:arg name="rpy" default="0 0 0" />
+
+    <xacro:arg name="world_frame" default="world" />
+
+    <!-- Import files -->
+    <xacro:include filename="$(find dlr_sensors)/urdf/stereolabs_zed2.urdf.xacro" />
+
+    <!-- Create world frame -->
+    <link name="$(arg world_frame)"/>
+
+    <!-- Camera macro -->
+    <xacro:stereolabs_zed2 camera_name_prefix="$(arg camera_name)" parent="$(arg world_frame)" enable_gazebo_plugin="$(arg enable_gazebo_plugin)">
+        <origin xyz="$(arg xyz)" rpy="$(arg rpy)"/>
+    </xacro:stereolabs_zed2>
+
+</robot>

@@ -17,8 +17,12 @@
 
     <!-- URDF object macro -->
     <xacro:macro name="canal_bridge" params="model_prefix">
-    
-        <link name="${model_prefix}base_link"/>
+
+        <material name="White">
+            <color rgba="0.6 0.6 0.6 1.0"/>
+        </material>
+
+        <link name="world"/>
         <link name="${model_prefix}main_link">
             <!-- <xacro:box_inertial x="0.05" y="0.05" z="0.05" mass="3.0">
                 <origin xyz="0 0 0.05" rpy="0 0 0" />
@@ -26,21 +30,22 @@
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge1.stl" scale="1 1 1"/>
+                    <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge.stl" scale="100 100 100"/>
                     <!-- <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge1.stl" scale="1000 1000 1000"/> -->
                     <!-- <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge1.stl" scale="0.001 0.001 0.001"/> -->
                 </geometry>
+                <material name="White"/>
             </visual>
             <collision>
                 <origin xyz="0 0 0.05" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge1.stl" scale="0.1 0.1 0.1"/>
+                    <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge.stl" scale="100 100 100"/>
                 </geometry>
             </collision>
         </link>
 
         <joint name="${model_prefix}base_joint" type="fixed">
-            <parent link="${model_prefix}base_link"/>
+            <parent link="world"/>
             <child link="${model_prefix}main_link"/>
         </joint>
 

@@ -17,4 +17,7 @@
   <depend>rospy</depend>
   <depend>roslaunch</depend>
 
+  <exec_depend>velodyne_description</exec_depend>
+  <exec_depend>velodyne_gazebo_plugins</exec_depend>
+
 </package>

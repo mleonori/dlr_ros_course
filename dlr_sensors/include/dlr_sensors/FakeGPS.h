@@ -15,30 +15,14 @@ class FakeGPS
             altitude_ = 12.345;
         };
 
-        bool updateData(const float& elapsed_time)
-        {
-            // Generate fake gps data
-            latitude_ += (elapsed_time*speed);
-            latitude_ -= (elapsed_time*speed);
-            altitude_ = altitude_;
-            return true;
-        };
+        bool updateData(const float& elapsed_time);
 
-        float getLatitude()
-        {
-            return latitude_;
-        };
+        float getLatitude();
 
-        float getLongitude()
-        {
-            return longitude_;
-        };
+        float getLongitude();
 
-        float getAltitude()
-        {
-            return altitude_;
-        };
-
+        float getAltitude();
+        
     private:
     
         float latitude_;
