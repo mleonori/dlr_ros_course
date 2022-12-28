@@ -3,7 +3,7 @@
 
     <!-- Launch arguments -->
     <arg name="model_name" default="canal_bridge"/>
-    <arg name="x_init_pose" default="0"/>
+    <arg name="x_init_pose" default="-10"/>
     <arg name="y_init_pose" default="0"/>
     <arg name="z_init_pose" default="0"/>
     <arg name="roll_init_pose" default="0"/>

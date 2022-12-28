@@ -57,9 +57,9 @@
             <!-- <static>true</static>   -->
         </gazebo>
         
-        <!-- Adde the planar move plugin -->
+        <!-- Added the planar move plugin -->
         <gazebo>
-            <plugin name="${model_prefix}planar_move_controller" filename="libgazebo_ros_planar_move.so">
+            <plugin name="${model_prefix}planar_move_controller" filename="libdlr_gazebo_ros_planar_move.so">
             <commandTopic>cmd_vel</commandTopic>
             <odometryTopic>odom</odometryTopic>
             <odometryFrame>odom</odometryFrame>

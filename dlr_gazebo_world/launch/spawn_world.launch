@@ -16,16 +16,33 @@
         <arg name="gui" value="$(arg launch_gazebo_gui)"/>
     </include>
 
-    <include file="$(find dlr_gazebo_world)/launch/spawn_urdf.launch">
-        <arg name="model_name" value="canal_bridge"/>
-        <arg name="x_init_pose" value="0"/>
-        <arg name="y_init_pose" value="0"/>
-        <arg name="z_init_pose" value="0"/>
-        <arg name="yaw_init_pose" value="0"/>
-        <arg name="urdf_filepath" value="$(find dlr_gazebo_world)/urdf/canal_bridge.urdf.xacro"/>
-        <arg name="urdf_args" value=""/>
-        <arg name="spawn_controllers" value="false"/>
-        <arg name="spawn_robot_state_publisher" value="true"/>
-    </include>
+    <!-- <group ns="bridge1">
+        <include file="$(find dlr_gazebo_world)/launch/spawn_urdf.launch">
+            <arg name="model_name" value="canal_bridge"/>
+            <arg name="x_init_pose" value="0"/>
+            <arg name="y_init_pose" value="0"/>
+            <arg name="z_init_pose" value="0"/>
+            <arg name="yaw_init_pose" value="0"/>
+            <arg name="urdf_filepath" value="$(find dlr_gazebo_world)/urdf/canal_bridge.urdf.xacro"/>
+            <arg name="urdf_args" value=""/>
+            <arg name="spawn_controllers" value="false"/>
+            <arg name="spawn_robot_state_publisher" value="true"/>
+        </include>
+    </group> -->
+
+    <group ns="bridge2">
+        <include file="$(find dlr_gazebo_world)/launch/spawn_urdf.launch">
+            <arg name="model_name" value="canal_bridge"/>
+            <arg name="x_init_pose" value="0"/>
+            <arg name="y_init_pose" value="15"/>
+            <arg name="z_init_pose" value="0"/>
+            <arg name="yaw_init_pose" value="0"/>
+            <arg name="urdf_filepath" value="$(find dlr_gazebo_world)/urdf/canal_bridge.urdf.xacro"/>
+            <arg name="urdf_args" value=""/>
+            <arg name="spawn_controllers" value="false"/>
+            <arg name="spawn_robot_state_publisher" value="false"/>
+        </include>
+    </group>
+    <!-- <include file="$(find dlr_vessel_description)/launch/dlr_vessel.launch"/> -->
 
 </launch>
