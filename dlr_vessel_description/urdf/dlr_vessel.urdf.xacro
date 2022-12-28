@@ -24,9 +24,9 @@
 
         <link name="${model_prefix}base_footprint"/>
         <link name="${model_prefix}base_link">
-            <!-- <xacro:box_inertial x="0.05" y="0.05" z="0.05" mass="3.0">
-                <origin xyz="0 0 0.05" rpy="0 0 0" />
-            </xacro:box_inertial> -->
+            <xacro:box_inertial x="10" y="3" z="3" mass="1000">
+                <origin xyz="0 0 0" rpy="0 0 0" />
+            </xacro:box_inertial>
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
@@ -64,6 +64,7 @@
             <odometryTopic>odom</odometryTopic>
             <odometryFrame>odom</odometryFrame>
             <odometryRate>20.0</odometryRate>
+            <robotBaseFrame>${model_prefix}base_footprint</robotBaseFrame>
             <robotBaseFrame>${model_prefix}base_footprint</robotBaseFrame>
             </plugin>
         </gazebo>

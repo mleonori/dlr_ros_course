@@ -2,7 +2,7 @@
 <launch>
 
     <!-- Launch arguments -->
-    <arg name="model_name" default="canal_bridge"/>
+    <arg name="model_name" default="dlr_vessel"/>
     <arg name="x_init_pose" default="0"/>
     <arg name="y_init_pose" default="0"/>
     <arg name="z_init_pose" default="0"/>
