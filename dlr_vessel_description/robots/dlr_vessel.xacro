@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dlr_vessel">
+
+    <!-- Model parameters -->
+    <xacro:arg name="model_name" default="dlr_vessel"/>
+
+    <!-- Include DLR vessel URDF file -->
+    <xacro:include filename="$(find dlr_vessel_description)/urdf/dlr_vessel.urdf.xacro"/>
+
+    <!-- Initialize DLR vessel macro -->
+    <xacro:dlr_vessel model_prefix="$(arg model_name)_"/>
+
+    <!-- Include Velodyne sensor -->
+    <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
+    <xacro:VLP-16 parent="$(arg model_name)_base_link" name="velodyne" topic="velodyne_points" 
+        organize_cloud="false" hz="10" lasers="16" samples="1875" 
+        collision_range="0.3" min_range="0.9" max_range="130.0" 
+        noise="0.008" min_angle="-${M_PI}" max_angle="${M_PI}" gpu="false">
+        <origin xyz="9.75 0 2.15" rpy="0 0 0"/>
+    </xacro:VLP-16>
+
+    <!-- Include Stereolab Zed2 camera -->
+    <xacro:arg name="camera_name" default="$(arg model_name)_stereolab_zed2_camera0" />
+    <xacro:arg name="enable_gazebo_plugin" default="true" />
+
+    <xacro:include filename="$(find dlr_sensors)/urdf/stereolabs_zed2.urdf.xacro" />
+    <xacro:stereolabs_zed2 camera_name_prefix="$(arg camera_name)" parent="$(arg model_name)_base_link" enable_gazebo_plugin="$(arg enable_gazebo_plugin)">
+        <origin xyz="9.75 0 2.25" rpy="0 0 0"/>
+    </xacro:stereolabs_zed2>
+
+    <!-- Include GNSS MTi 680G imu -->
+    <xacro:arg name="imu_name" default="$(arg model_name)_gnss_mti_680g_" />
+    <!-- <xacro:arg name="enable_gazebo_plugin" default="true" /> -->
+
+    <xacro:include filename="$(find dlr_sensors)/urdf/GNSS_MTi_680G.urdf.xacro" />
+    <xacro:gnss_mti_680g prefix="$(arg imu_name)" parent="$(arg model_name)_base_link">
+        <origin xyz="9.75 0 4.25" rpy="0 0 0"/>
+    </xacro:gnss_mti_680g>
+
+</robot>

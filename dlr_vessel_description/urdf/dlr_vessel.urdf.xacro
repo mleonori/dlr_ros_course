@@ -22,7 +22,7 @@
             <color rgba="0.6 0.6 0.6 1.0"/>
         </material>
 
-        <link name="world"/>
+        <link name="${model_prefix}base_footprint"/>
         <link name="${model_prefix}base_link">
             <!-- <xacro:box_inertial x="0.05" y="0.05" z="0.05" mass="3.0">
                 <origin xyz="0 0 0.05" rpy="0 0 0" />
@@ -30,22 +30,20 @@
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <!-- <mesh filename="package://dlr_vessel_description/meshes/patrol_boat.stl" scale="1 1 1"/> -->
-                    <mesh filename="package://dlr_vessel_description/meshes/dlr_vessel.stl" scale="100 100 100"/>
-                    <!-- <mesh filename="package://dlr_vessel_description/meshes/dlr_vessel.stl" scale="0.001 0.001 0.001"/> -->
+                    <mesh filename="package://dlr_vessel_description/meshes/patrol_boat.stl"/>
                 </geometry>
                 <material name="White"/>
             </visual>
             <collision>
                 <origin xyz="0 0 0.05" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://dlr_vessel_description/meshes/patrol_boat.stl" scale="100 100 100"/>
+                    <mesh filename="package://dlr_vessel_description/meshes/patrol_boat.stl"/>
                 </geometry>
             </collision>
         </link>
 
-        <joint name="${model_prefix}base_joint" type="fixed">
-            <parent link="world"/>
+        <joint name="${model_prefix}base_link_joint" type="fixed">
+            <parent link="${model_prefix}base_footprint"/>
             <child link="${model_prefix}base_link"/>
         </joint>
 
@@ -59,13 +57,20 @@
             <static>true</static>  
         </gazebo>
         
+        <!-- Adde the planar move plugin -->
         <gazebo>
-            <static>true</static>  
+            <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+            <commandTopic>cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <odometryRate>20.0</odometryRate>
+            <robotBaseFrame>${model_prefix}base_footprint</robotBaseFrame>
+            </plugin>
         </gazebo>
 
     </xacro:macro>
 
     <!-- Create macro -->
-    <xacro:dlr_vessel model_prefix="$(arg model_name)_"/>
+    <!-- <xacro:dlr_vessel model_prefix="$(arg model_name)_"/> -->
 
 </robot>

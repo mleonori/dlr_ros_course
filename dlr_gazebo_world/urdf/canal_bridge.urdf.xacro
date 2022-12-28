@@ -31,8 +31,6 @@
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
                     <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge.stl" scale="100 100 100"/>
-                    <!-- <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge1.stl" scale="1000 1000 1000"/> -->
-                    <!-- <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge1.stl" scale="0.001 0.001 0.001"/> -->
                 </geometry>
                 <material name="White"/>
             </visual>
