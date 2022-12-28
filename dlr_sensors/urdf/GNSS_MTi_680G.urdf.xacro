@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<robot name="gnss_mti_680g" xmlns:xacro="http://wiki.ros.org/xacro">
+
+    <xacro:macro name="gnss_mti_680g" params="prefix:=zed 
+                                                parent 
+                                                *origin 
+                                                format:=R8G8B8 
+                                                near:=0.5 
+                                                far:=30 
+                                                enable_gazebo_plugin:=true">
+
+    <xacro:property name="M_PI" value="3.14159265359"/>
+
+    <!-- Solid cuboid inertia macro definition -->
+    <xacro:macro name="solid_cuboid_inertia" params="m h d w">
+        <inertia  ixx="${(m*(h*h+d*d))/12}" ixy = "0" ixz = "0"
+                iyy="${(m*(w*w+d*d))/12}" iyz = "0"
+                izz="${(m*(w*w+h*h))/12}"/>
+    </xacro:macro>
+
+        <xacro:property name="baseline" value="0.12" />
+        <joint name="${prefix}_base_joint" type="fixed">
+            <xacro:insert_block name="origin" />
+            <parent link="${parent}"/>
+            <child link="${prefix}_base_link" />
+        </joint>
+
+        <link name="${prefix}_base_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <!-- <mesh filename="package://dlr_sensors/meshes/visual/stereolabs_zed2.stl"/> -->
+                    <box size="0.028 0.0315 0.013"/>
+                </geometry>
+                <material name="light_zed_grey">
+                    <color rgba="0.35 0.35 0.35 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.028 0.0315 0.013"/>
+                </geometry>
+            </collision>
+            <!-- <inertial>
+                <mass value="0.009" />
+                <origin xyz="0 0 0" />
+                <xacro:solid_cuboid_inertia m="0.009" w="0.028" h="0.0315" d="0.013" />
+            </inertial> -->
+        </link>
+
+        <gazebo>
+            <plugin name="${prefix}_imu_plugin" filename="libgazebo_ros_imu.so">
+                <alwaysOn>true</alwaysOn>
+                <bodyName>${prefix}_base_link</bodyName>
+                <topicName>imu</topicName>
+                <serviceName>imu_service</serviceName>
+                <gaussianNoise>0.004</gaussianNoise>
+                <updateRate>20.0</updateRate>
+            </plugin>
+        </gazebo>
+
+    </xacro:macro>
+    
+</robot>
+
