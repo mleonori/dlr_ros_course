@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package format="2">
+        
+    <name>dlr_gazebo_plugins</name>
+    <version>0.0.1</version>
+    <description>This is dlr_gazebo_plugins package. It contains different Gazebo plugins</description>
+
+    <author email="mattialeonori26@gmail.com">Mattia Leonori</author>
+
+    <maintainer email="mattialeonori26@gmail.com">Mattia Leonori</maintainer>
+
+    <license>Apache 2.0</license>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <build_depend>gazebo_dev</build_depend>
+    <!--
+        Need to use gazebo_dev since run script needs pkg-config
+        See: https://github.com/ros-simulation/gazebo_ros_pkgs/issues/323 for more info
+    -->
+    <exec_depend>gazebo_dev</exec_depend>
+
+    <depend>gazebo_ros</depend>
+    <depend>gazebo_msgs</depend>
+    <depend>geometry_msgs</depend>
+    <depend>sensor_msgs</depend>
+    <depend>roscpp</depend>
+    <depend>rospy</depend>
+    <depend>nav_msgs</depend>
+
+    <export>
+        <gazebo_ros plugin_path="${prefix}/../../lib" gazebo_media_path="${prefix}" />
+    </export>
+</package>
