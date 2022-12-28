@@ -16,7 +16,7 @@
         organize_cloud="false" hz="10" lasers="16" samples="1875" 
         collision_range="0.3" min_range="0.9" max_range="130.0" 
         noise="0.008" min_angle="-${M_PI}" max_angle="${M_PI}" gpu="false">
-        <origin xyz="9.75 0 2.15" rpy="0 0 0"/>
+        <origin xyz="9.75 0 2.20" rpy="0 0 0"/>
     </xacro:VLP-16>
 
     <!-- Include Stereolab Zed2 camera -->
@@ -25,7 +25,7 @@
 
     <xacro:include filename="$(find dlr_sensors)/urdf/stereolabs_zed2.urdf.xacro" />
     <xacro:stereolabs_zed2 camera_name_prefix="$(arg camera_name)" parent="$(arg model_name)_base_link" enable_gazebo_plugin="$(arg enable_gazebo_plugin)">
-        <origin xyz="9.75 0 2.25" rpy="0 0 0"/>
+        <origin xyz="9.75 0 2.35" rpy="0 0 0"/>
     </xacro:stereolabs_zed2>
 
     <!-- Include GNSS MTi 680G imu -->
@@ -34,7 +34,7 @@
 
     <xacro:include filename="$(find dlr_sensors)/urdf/GNSS_MTi_680G.urdf.xacro" />
     <xacro:gnss_mti_680g prefix="$(arg imu_name)" parent="$(arg model_name)_base_link">
-        <origin xyz="9.75 0 4.25" rpy="0 0 0"/>
+        <origin xyz="9.75 0 2.4" rpy="0 0 0"/>
     </xacro:gnss_mti_680g>
 
 </robot>

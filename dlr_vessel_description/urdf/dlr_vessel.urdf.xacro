@@ -35,7 +35,7 @@
                 <material name="White"/>
             </visual>
             <collision>
-                <origin xyz="0 0 0.05" rpy="0 0 0"/>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
                     <mesh filename="package://dlr_vessel_description/meshes/patrol_boat.stl"/>
                 </geometry>
@@ -49,17 +49,17 @@
 
         <!-- Gazebo properties -->
         <gazebo reference="${model_prefix}base_link">
-            <material>Gazebo/Red</material>
+            <material>Gazebo/Grey</material>
             <mu1>0.2</mu1>
             <mu2>0.2</mu2>
             <minDepth>0.001</minDepth>
             <maxVel>0</maxVel>
-            <static>true</static>  
+            <!-- <static>true</static>   -->
         </gazebo>
         
         <!-- Adde the planar move plugin -->
         <gazebo>
-            <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+            <plugin name="${model_prefix}planar_move_controller" filename="libgazebo_ros_planar_move.so">
             <commandTopic>cmd_vel</commandTopic>
             <odometryTopic>odom</odometryTopic>
             <odometryFrame>odom</odometryFrame>

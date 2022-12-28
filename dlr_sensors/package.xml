@@ -3,7 +3,7 @@
 
   <name>dlr_sensors</name>
   <version>0.0.1</version>
-  <description>This is dlr_sensors package.  It contains different simulated sensors (i.e. IMUs and LIDARs)</description>
+  <description>This is dlr_sensors package. It contains different simulated sensors (i.e. IMUs and LIDARs)</description>
 
   <author email="mattialeonori26@gmail.com">Mattia Leonori</author>
 
