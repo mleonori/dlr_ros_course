@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="canal_bridge">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dlr_vessel">
 
     <!-- Model parameters -->
     <xacro:arg name="model_name" default="model_name"/>
@@ -16,41 +16,41 @@
     </xacro:macro>
 
     <!-- URDF object macro -->
-    <xacro:macro name="canal_bridge" params="model_prefix">
+    <xacro:macro name="dlr_vessel" params="model_prefix">
 
         <material name="White">
             <color rgba="0.6 0.6 0.6 1.0"/>
         </material>
 
         <link name="world"/>
-        <link name="${model_prefix}main_link">
+        <link name="${model_prefix}base_link">
             <!-- <xacro:box_inertial x="0.05" y="0.05" z="0.05" mass="3.0">
                 <origin xyz="0 0 0.05" rpy="0 0 0" />
             </xacro:box_inertial> -->
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge.stl" scale="100 100 100"/>
-                    <!-- <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge1.stl" scale="1000 1000 1000"/> -->
-                    <!-- <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge1.stl" scale="0.001 0.001 0.001"/> -->
+                    <!-- <mesh filename="package://dlr_vessel_description/meshes/patrol_boat.stl" scale="1 1 1"/> -->
+                    <mesh filename="package://dlr_vessel_description/meshes/dlr_vessel.stl" scale="100 100 100"/>
+                    <!-- <mesh filename="package://dlr_vessel_description/meshes/dlr_vessel.stl" scale="0.001 0.001 0.001"/> -->
                 </geometry>
                 <material name="White"/>
             </visual>
             <collision>
                 <origin xyz="0 0 0.05" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge.stl" scale="100 100 100"/>
+                    <mesh filename="package://dlr_vessel_description/meshes/patrol_boat.stl" scale="100 100 100"/>
                 </geometry>
             </collision>
         </link>
 
         <joint name="${model_prefix}base_joint" type="fixed">
             <parent link="world"/>
-            <child link="${model_prefix}main_link"/>
+            <child link="${model_prefix}base_link"/>
         </joint>
 
         <!-- Gazebo properties -->
-        <gazebo reference="${model_prefix}main_link">
+        <gazebo reference="${model_prefix}base_link">
             <material>Gazebo/Red</material>
             <mu1>0.2</mu1>
             <mu2>0.2</mu2>
@@ -66,6 +66,6 @@
     </xacro:macro>
 
     <!-- Create macro -->
-    <xacro:canal_bridge model_prefix="$(arg model_name)_"/>
+    <xacro:dlr_vessel model_prefix="$(arg model_name)_"/>
 
 </robot>
