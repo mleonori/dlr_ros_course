@@ -14,6 +14,8 @@
     <arg name="spawn_controllers" default="true"/>
     <arg name="spawn_robot_state_publisher" default="true"/>
 
-    <include file="$(find dlr_gazebo_world)/launch/spawn_urdf.launch" pass_all_args="true"/> 
-
+    <group ns="dlr_vessel">
+        <include file="$(find dlr_gazebo_world)/launch/spawn_urdf.launch" pass_all_args="true"/> 
+    </group>
+    
 </launch>

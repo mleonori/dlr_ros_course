@@ -60,12 +60,12 @@
         <!-- Added the planar move plugin -->
         <gazebo>
             <plugin name="${model_prefix}planar_move_controller" filename="libdlr_gazebo_ros_planar_move.so">
-            <commandTopic>cmd_vel</commandTopic>
-            <odometryTopic>odom</odometryTopic>
-            <odometryFrame>odom</odometryFrame>
-            <odometryRate>20.0</odometryRate>
-            <robotBaseFrame>${model_prefix}base_footprint</robotBaseFrame>
-            <robotBaseFrame>${model_prefix}base_footprint</robotBaseFrame>
+                <commandTopic>cmd_vel</commandTopic>
+                <odometryTopic>odom</odometryTopic>
+                <odometryFrame>odom</odometryFrame>
+                <odometryRate>20.0</odometryRate>
+                <robotBaseFrame>${model_prefix}base_footprint</robotBaseFrame>
+                <cmdTimeout>-1</cmdTimeout>
             </plugin>
         </gazebo>
 

@@ -22,10 +22,10 @@
         <joint name="${prefix}_base_joint" type="fixed">
             <xacro:insert_block name="origin" />
             <parent link="${parent}"/>
-            <child link="${prefix}_base_link" />
+            <child link="${prefix}base_link" />
         </joint>
 
-        <link name="${prefix}_base_link">
+        <link name="${prefix}base_link">
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
@@ -52,14 +52,14 @@
         <!-- <gazebo>
             <plugin name="${prefix}_imu_plugin" filename="libgazebo_ros_imu.so">
                 <alwaysOn>true</alwaysOn>
-                <bodyName>${prefix}_base_link</bodyName>
+                <bodyName>${prefix}base_link</bodyName>
                 <topicName>imu</topicName>
                 <serviceName>imu_service</serviceName>
                 <gaussianNoise>0.004</gaussianNoise>
                 <updateRate>50.0</updateRate>
             </plugin>
         </gazebo> -->
-        <gazebo reference="${prefix}_base_link">
+        <gazebo reference="${prefix}base_link">
             <gravity>true</gravity>
             <sensor name="${prefix}_imu_sensor" type="imu">
                 <always_on>true</always_on>
@@ -68,19 +68,42 @@
                 <topic>__default_topic__</topic>
                 <plugin filename="libgazebo_ros_imu_sensor.so" name="${prefix}_imu_plugin">
                     <topicName>imu/data</topicName>
-                    <bodyName>${prefix}_base_link</bodyName>
+                    <bodyName>${prefix}base_link</bodyName>
                     <updateRateHZ>100.0</updateRateHZ>
                     <gaussianNoise>0.0</gaussianNoise>
                     <xyzOffset>0 0 0</xyzOffset>
                     <rpyOffset>0 0 0</rpyOffset>
-                    <frameName>${prefix}_base_link</frameName>
+                    <frameName>${prefix}base_link</frameName>
                     <initialOrientationAsReference>false</initialOrientationAsReference>
                 </plugin>
                 <pose>0 0 0 0 0 0</pose>
             </sensor>
         </gazebo>
 
-
+        <gazebo>
+            <plugin name="${prefix}_gps_plugin" filename="libhector_gazebo_ros_gps.so">
+                <updateRate>1</updateRate>
+                <!-- <robotNamespace></robotNamespace> -->
+                <bodyName>${prefix}base_link</bodyName>
+                <frameId>${prefix}base_link</frameId>
+                <topicName>gps/fix</topicName>
+                <velocityTopicName>gps/fix_velocity</velocityTopicName>
+                <referenceLatitude>49.9</referenceLatitude>
+                <referenceLongitude>8.9</referenceLongitude>
+                <referenceHeading>0.0</referenceHeading>
+                <referenceAltitude>0.0</referenceAltitude>
+                <status>0</status>
+                <service>1</service>
+                <offset>0 0 0</offset>
+                <drift>0 0 0</drift>
+                <driftFrequency>0 0 0</driftFrequency>
+                <gaussianNoise>0 0 0</gaussianNoise>
+                <velocityOffset>0 0 0</velocityOffset>
+                <velocityDrift>0 0 0</velocityDrift>
+                <velocityDriftFrequency>0 0 0</velocityDriftFrequency>
+                <velocityGaussianNoise>0 0 0</velocityGaussianNoise>
+            </plugin>
+        </gazebo>
     </xacro:macro>
     
 </robot>
