@@ -28,8 +28,8 @@ catkin_package(
     rospy
 )
 
-# add_definitions(-fPIC) # what is this for?
-
-## Plugins
-add_library(dlr_gazebo_ros_planar_move src/gazebo_ros_planar_move.cpp)
-target_link_libraries(dlr_gazebo_ros_planar_move ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+if (UNIX)
+  ## Plugins
+  add_library(dlr_gazebo_ros_planar_move src/gazebo_ros_planar_move.cpp)
+  target_link_libraries(dlr_gazebo_ros_planar_move ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+endif (UNIX)
