@@ -15,6 +15,16 @@ class FakeGPSNode
             activation_service_ = nh_.advertiseService("activate", &FakeGPSNode::activationServiceCallback, this);
         };
 
+        bool init()
+        {
+            return getROSParams();
+        }
+
+        bool updateData()
+        {
+            return gps_driver_.updateData();
+        }
+
         bool publishData()
         {
             if (active_)
@@ -44,24 +54,33 @@ class FakeGPSNode
 
         float sensorAPIgetLatitude()
         {
-            return 1.5;
+            return gps_driver_.getLatitude();
         };
 
         float sensorAPIgetLongitude()
         {
-            return 1.5;
+            return gps_driver_.getLongitude();
         };
 
         float sensorAPIgetAltitude()
         {
-            return 1.5;
+            return gps_driver_.getAltitude();
         };
+
+        bool isActive()
+        {
+            return active_;
+        }
 
     private:
 
         ros::NodeHandle nh_;
         ros::Publisher pub_;
         ros::ServiceServer activation_service_;
+        std::string frame_id_;
+        float position_covariance_;
+
+        dlr::FakeGPS gps_driver_;
 
         bool active_;
 
@@ -84,21 +103,53 @@ class FakeGPSNode
             return true;
         }
 
+        bool getROSParams()
+        {
+            // Get a ROS parameter, if does not exists initialization fails
+            if (!nh_.getParam("frame_id", frame_id_))
+            {
+                ROS_ERROR_STREAM("No " << nh_.resolveName("frame_id") << " ROS param found.");
+                return false;
+            }
+            
+            // Get a ROS parameter, if does not exists assign a default value
+            position_covariance_
+            if (!nh_.param<float>("position_covariance", position_covariance_, 0.005))
+            {
+                ROS_WARN_STREAM("No " << nh_.resolveName("position_covariance") << " ROS param found. Assigning default value:" << position_covariance_);
+            }
+            return true;
+        }
+
 }; // class FakeGPSNode
 
 } // namespace dlr
 
 int main(int argc, char** argv)
 {
+    // Initialize the ROS node 
     ros::init(argc, argv, "gps");
 
+    // Declare GPS object node
     dlr::FakeGPSNode gps_node;
 
+    // GPS node initialization
+    if (!gps_node.init())
+    {
+        ROS_ERROR("Initialization error.");
+        return -1;
+    }
+
+    // Define the loop rate
     ros::Rate loop_rate(1);
 
     while (ros::ok())
     {
-        gps_node.publishData();
+        if (gps_node.isActive())
+        {
+            gps_node.updateData();
+            gps_node.publishData();
+        }
 
         ros::spinOnce();
         loop_rate.sleep();
