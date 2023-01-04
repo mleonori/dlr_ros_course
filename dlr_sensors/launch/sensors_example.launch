@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<launch>
+
+    <!-- Gazebo arguments -->
+
+    <!-- Gazebo arguments -->
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="true"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
+    <arg name="verbose" default="false"/>
+    <arg name="world_name" default="$(find velodyne_description)/world/example.world"/>
+
+    <!-- Velodyne arguments -->
+    <arg name="gpu" default="false"/>
+    <arg name="organize_cloud" default="false"/>
+
+    <!-- RViz arguments -->
+    <arg name="rviz" default="true"/>
+
+    <!-- Start gazebo and load the world -->
+    <include file="$(find dlr_sensors)/launch/velodyne_example.launch" >
+        <arg name="paused" value="$(arg paused)"/>
+        <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+        <arg name="gui" value="$(arg gui)"/>
+        <arg name="headless" value="$(arg headless)"/>
+        <arg name="debug" value="$(arg debug)"/>
+        <arg name="verbose" value="$(arg verbose)"/>
+        <arg name="world_name" value="$(arg world_name)"/>
+    </include>
+
+    <!-- Run the fake gps node -->
+    <node pkg="dlr_sensors" type="fake_gps_sensor_class" name="gps" args="" output="screen" required="true" respawn="false">
+    </node>
+
+</launch>

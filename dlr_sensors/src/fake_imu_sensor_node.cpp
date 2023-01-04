@@ -15,7 +15,7 @@ class FakeIMUNode
 
         bool updateData(const float& elapsed_time)
         {
-            return imu_.updateData(elapsed_time);
+            return imu_driver_.updateData(elapsed_time);
         }
 
         bool publishData()
@@ -23,15 +23,19 @@ class FakeIMUNode
             sensor_msgs::Imu msg;
             msg.header.stamp = ros::Time().now();
             msg.header.frame_id = "imu";
-            //msg.status.service = NavSatStatus.SERVICE_GPS
-            // msg.latitude = gps_.getLatitude();
-            // msg.longitude = gps_.getLongitude();
-            // msg.altitude = gps_.getAltitude();
-            
-            // msg.position_covariance[0] = 0;
-            // msg.position_covariance[4] = 0;
-            // msg.position_covariance[8] = 0;
-            // msg.position_covariance_type = sensor_msgs::NavSatFix().COVARIANCE_TYPE_DIAGONAL_KNOWN;
+            // Get quaterion
+            msg.orientation.w = imu_driver_.getQuaternion().w();
+            msg.orientation.x = imu_driver_.getQuaternion().x();
+            msg.orientation.y = imu_driver_.getQuaternion().y();
+            msg.orientation.z = imu_driver_.getQuaternion().z();
+            // Get angular velocities
+            msg.angular_velocity.x = imu_driver_.getAngularVelocities()[0];
+            msg.angular_velocity.y = imu_driver_.getAngularVelocities()[1];
+            msg.angular_velocity.z = imu_driver_.getAngularVelocities()[2];
+            // Get angular velocities
+            msg.linear_acceleration.x = imu_driver_.getLinearAccelerations()[0];
+            msg.linear_acceleration.y = imu_driver_.getLinearAccelerations()[1];
+            msg.linear_acceleration.z = imu_driver_.getLinearAccelerations()[2];
 
             pub_.publish(msg);
             return true;
@@ -41,7 +45,7 @@ class FakeIMUNode
 
         ros::NodeHandle nh_;
         ros::Publisher pub_;
-        dlr::FakeIMU imu_;
+        dlr::FakeIMU imu_driver_;
 
 }; // class FakeIMUNode
 
