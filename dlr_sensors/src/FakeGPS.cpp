@@ -1,20 +1,21 @@
 #include "dlr_sensors/FakeGPS.h"
+#include <iostream>
 
 namespace dlr{
     
-FakeGPS::FakeGPS() : constant_speed_(0.001)
+FakeGPS::FakeGPS() : constant_speed_(0.001f)
 {
     // Set initial values
-    latitude_ = 52.25444;
-    longitude_ = 13.31476;
-    altitude_ = 12.345;
+    latitude_ = 52.25444f;
+    longitude_ = 13.31476f;
+    altitude_ = 12.345f;
 };
 
 bool FakeGPS::updateData(const float& elapsed_time)
 {
     // Generate fake gps data
     latitude_ += (elapsed_time * constant_speed_);
-    latitude_ -= (elapsed_time * constant_speed_);
+    longitude_ -= (elapsed_time * constant_speed_);
     altitude_ = altitude_;
     return true;
 };

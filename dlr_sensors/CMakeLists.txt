@@ -15,7 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-
+find_package(Eigen3 REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -150,15 +150,30 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
+add_library(${PROJECT_NAME}_fake_gps src/FakeGPS.cpp)
+add_dependencies(${PROJECT_NAME}_fake_gps ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_fake_gps ${catkin_LIBRARIES})
+
 add_executable(${PROJECT_NAME}_fake_gps_sensor src/fake_gps_sensor_node.cpp)
 set_target_properties(${PROJECT_NAME}_fake_gps_sensor PROPERTIES OUTPUT_NAME "fake_gps_sensor")
 add_dependencies(${PROJECT_NAME}_fake_gps_sensor ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(${PROJECT_NAME}_fake_gps_sensor ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_fake_gps_sensor ${catkin_LIBRARIES} ${PROJECT_NAME}_fake_gps)
 
 add_executable(${PROJECT_NAME}_fake_gps_sensor_class src/fake_gps_sensor_class_node.cpp)
 set_target_properties(${PROJECT_NAME}_fake_gps_sensor_class PROPERTIES OUTPUT_NAME "fake_gps_sensor_class")
 add_dependencies(${PROJECT_NAME}_fake_gps_sensor_class ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(${PROJECT_NAME}_fake_gps_sensor_class ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_fake_gps_sensor_class ${catkin_LIBRARIES} ${PROJECT_NAME}_fake_gps)
+
+
+add_library(${PROJECT_NAME}_fake_imu src/FakeIMU.cpp)
+add_dependencies(${PROJECT_NAME}_fake_imu ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_fake_imu ${catkin_LIBRARIES})
+
+add_executable(${PROJECT_NAME}_fake_imu_sensor src/fake_imu_sensor_node.cpp)
+set_target_properties(${PROJECT_NAME}_fake_imu_sensor PROPERTIES OUTPUT_NAME "fake_imu_sensor")
+add_dependencies(${PROJECT_NAME}_fake_imu_sensor ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_fake_imu_sensor ${catkin_LIBRARIES} ${PROJECT_NAME}_fake_imu)
+
 
 #############
 ## Install ##

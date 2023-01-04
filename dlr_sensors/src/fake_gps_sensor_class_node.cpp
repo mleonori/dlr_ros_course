@@ -9,11 +9,16 @@ class FakeGPSNode
 {
     public: 
         // Class constructor
-        FakeGPSNode() : nh_("~"), active_(false)
+        FakeGPSNode() : nh_("~"), active_(false), activation_service_name_("activate")
         {
             pub_ = nh_.advertise<sensor_msgs::NavSatFix>("data", 10);
-            activation_service_ = nh_.advertiseService("activate", &FakeGPSNode::activationServiceCallback, this);
+            activation_service_ = nh_.advertiseService(activation_service_name_, &FakeGPSNode::activationServiceCallback, this);
         };
+
+        bool updateData(const float& elapsed_time)
+        {
+            return gps_.updateData(elapsed_time);
+        }
 
         bool publishData()
         {
@@ -24,9 +29,9 @@ class FakeGPSNode
                 msg.header.frame_id = "gps";
                 msg.status.status = sensor_msgs::NavSatStatus().STATUS_FIX;
                 //msg.status.service = NavSatStatus.SERVICE_GPS
-                msg.latitude = sensorAPIgetLatitude();
-                msg.longitude = sensorAPIgetLongitude();
-                msg.altitude = sensorAPIgetAltitude();
+                msg.latitude = gps_.getLatitude();
+                msg.longitude = gps_.getLongitude();
+                msg.altitude = gps_.getAltitude();
                 
                 msg.position_covariance[0] = 0;
                 msg.position_covariance[4] = 0;
@@ -38,23 +43,14 @@ class FakeGPSNode
 
                 pub_.publish(msg);
             }
+            else
+            {
+                ROS_WARN_STREAM_THROTTLE(10, "Fake GPS sensor node waiting for activation. Call \"" << 
+                                        nh_.resolveName(activation_service_name_) << "\" service using the following command: " <<
+                                        "rosservice call " << nh_.resolveName(activation_service_name_) << " \"data: true\"");
+            }
             
             return true;
-        };
-
-        float sensorAPIgetLatitude()
-        {
-            return 1.5;
-        };
-
-        float sensorAPIgetLongitude()
-        {
-            return 1.5;
-        };
-
-        float sensorAPIgetAltitude()
-        {
-            return 1.5;
         };
 
     private:
@@ -62,6 +58,8 @@ class FakeGPSNode
         ros::NodeHandle nh_;
         ros::Publisher pub_;
         ros::ServiceServer activation_service_;
+        std::string activation_service_name_;
+        dlr::FakeGPS gps_;
 
         bool active_;
 
@@ -94,10 +92,12 @@ int main(int argc, char** argv)
 
     dlr::FakeGPSNode gps_node;
 
-    ros::Rate loop_rate(1);
+    float loop_rate_hz = 1.0;
+    ros::Rate loop_rate(loop_rate_hz);
 
     while (ros::ok())
     {
+        gps_node.updateData(1.0/loop_rate_hz);
         gps_node.publishData();
 
         ros::spinOnce();

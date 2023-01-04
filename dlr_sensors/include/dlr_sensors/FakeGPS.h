@@ -7,13 +7,7 @@ class FakeGPS
 {
     public: 
         // Class constructor
-        FakeGPS() : constant_speed_(0.001f)
-        {
-            // Set initial values
-            latitude_ = 52.25444f;
-            longitude_ = 13.31476f;
-            altitude_ = 12.345f;
-        };
+        FakeGPS();
 
         bool updateData(const float& elapsed_time);
 

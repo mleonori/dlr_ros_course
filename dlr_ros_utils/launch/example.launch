@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<launch>
+    <!-- This launch file is just an example of the possible tags -->
+
+    <!-- This is a comment -->
+    <arg name="my_string_arg" default="default_value" doc="This is a short description of the argument"/>
+    <arg name="my_boolean_arg" default="true" doc="This argument is a boolean"/>
+
+    <param name="my_param" value="$(arg my_string_arg)"/>
+
+    <node name="node_name" pkg="my_package" type="my_node" output="console" required="true" args=""/>
+
+    <include file="$(find my_package)/launch/example2.launch">
+        <arg name="my_arg2" value="$(arg my_string_arg)"/>
+        <arg name="my_arg3" value="$(arg my_boolean_arg)"/>
+    </include>
+
+    <group if="$(arg my_boolean_arg)" ns="my_ns">
+        <node name="node_name" pkg="my_package" type="my_node" output="console" required="true" args="">
+            <param value="my_string_param" value="$(arg my_string_arg)"/>
+            <remap from="original_topic_name" to="new_topic_name"/>
+        </node>
+
+        <include file="$(find my_package)/launch/example2.launch">
+            <arg name="my_arg2" value="$(arg my_string_arg)"/>
+            <arg name="my_arg3" value="$(arg my_boolean_arg)"/>
+        </include>
+    </group>
+
+</launch>
+
+
+
