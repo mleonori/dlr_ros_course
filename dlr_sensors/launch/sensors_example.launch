@@ -16,11 +16,15 @@
     <arg name="gpu" default="false"/>
     <arg name="organize_cloud" default="false"/>
 
+    <!-- GPS arguments -->
+    <arg name="gps_frame_id" default="gps_base_link"/>
+    <arg name="gps_position_covariance" default="0.001"/>
+
     <!-- RViz arguments -->
     <arg name="rviz" default="true"/>
 
     <!-- Start gazebo and load the world -->
-    <include file="$(find dlr_sensors)/launch/velodyne_example.launch" >
+    <!-- <include file="$(find dlr_sensors)/launch/velodyne_example.launch" >
         <arg name="paused" value="$(arg paused)"/>
         <arg name="use_sim_time" value="$(arg use_sim_time)"/>
         <arg name="gui" value="$(arg gui)"/>
@@ -28,10 +32,14 @@
         <arg name="debug" value="$(arg debug)"/>
         <arg name="verbose" value="$(arg verbose)"/>
         <arg name="world_name" value="$(arg world_name)"/>
-    </include>
+    </include> -->
 
     <!-- Run the fake gps node -->
     <node pkg="dlr_sensors" type="fake_gps_sensor_class" name="gps" args="" output="screen" required="true" respawn="false">
+        <param name="frame_id" value="$(arg gps_frame_id)"/>
+        <param name="position_covariance" value="$(arg gps_position_covariance)"/>
     </node>
+
+    <node pkg="dlr_sensors" type="fake_imu_sensor" name="imu" args="" output="screen" required="true" respawn="false"/>
 
 </launch>

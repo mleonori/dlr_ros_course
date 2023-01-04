@@ -130,6 +130,8 @@ int main(int argc, char** argv)
     float loop_rate_hz = 1.0;
     ros::Rate loop_rate(loop_rate_hz);
 
+    ROS_INFO("GPS node started.");
+    
     while (ros::ok())
     {
         gps_node.updateData(1.0/loop_rate_hz);

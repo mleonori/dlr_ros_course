@@ -53,6 +53,8 @@ int main(int argc, char** argv)
     nav_sat_fix_msg.latitude = 52.25444;
     nav_sat_fix_msg.longitude = 13.31476;
 
+    ROS_INFO("GPS node started.");
+
     while (ros::ok())
     {
         /**

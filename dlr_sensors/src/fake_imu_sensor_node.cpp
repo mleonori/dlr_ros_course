@@ -60,6 +60,8 @@ int main(int argc, char** argv)
     float loop_rate_hz = 100.0;
     ros::Rate loop_rate(loop_rate_hz);
 
+    ROS_INFO("IMU node started.");
+
     while (ros::ok())
     {
         imu_node.updateData(1.0/loop_rate_hz);
