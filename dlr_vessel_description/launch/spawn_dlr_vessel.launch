@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<launch>
+
+    <!-- Vessel model arguments -->
+    <arg name="model_name" default="dlr_vessel"/>
+    <arg name="x_init_pose" default="0"/>
+    <arg name="y_init_pose" default="0"/>
+    <arg name="z_init_pose" default="0"/>
+    <arg name="roll_init_pose" default="0"/>
+    <arg name="pitch_init_pose" default="0"/>
+    <arg name="yaw_init_pose" default="0"/>
+    <arg name="urdf_filepath" default="$(find dlr_vessel_description)/robots/dlr_vessel.xacro"/>
+    <arg name="urdf_args" default=""/>
+
+    <!-- Vessel controllers arguments -->
+    <arg name="spawn_controllers" default="true"/>
+    <arg name="spawn_robot_state_publisher" default="true"/>
+
+    <!-- RViz arguments -->
+    <arg name="launch_rviz" default="false"/>
+    <arg name="rviz_config_file" default="$(find dlr_vessel_description)/rviz/vessel_sim_visualization.rviz"/>
+    
+    <group ns="dlr_vessel">
+        <!-- Include spawn urdf launch file to spawn the vessel in Gazebo -->
+        <include file="$(find dlr_gazebo_world)/launch/spawn_urdf.launch" pass_all_args="true"/> 
+   
+        <!-- Launch RViz -->
+        <node if="$(arg launch_rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config_file)" output="screen"/>
+    </group>
+
+    
+</launch>
