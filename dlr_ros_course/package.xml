@@ -14,8 +14,10 @@
 
   <exec_depend>dlr_vessel_description</exec_depend>
   <exec_depend>dlr_gazebo_world</exec_depend>
+  <exec_depend>dlr_gazebo_plugin</exec_depend>
   <exec_depend>dlr_sensors</exec_depend>
   <exec_depend>dlr_ros_utils</exec_depend>
+  <exec_depend>dlr_msgs</exec_depend>
 
   <export>
     <metapackage/>

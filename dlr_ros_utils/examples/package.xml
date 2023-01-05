@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>package_name</name>
+    <version>X.Y.Z</version>
+    <description>Short description of the ROS package_name</description>
+    <author email="author@email.com">Name Surname</author>
+    <maintainer email="maintainer@email.com">Name Surname</maintainer>
+    <license>BSD|Apache 2.0|Others...</license>
+    <url type="website">https://gitABC.com/...package_name...</url>
+    
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <depend>dep1</depend>
+    <depend>depN</depend>
+
+    <build_depend>message_generation</build_depend>
+    
+</package>
