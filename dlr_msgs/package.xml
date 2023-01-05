@@ -19,7 +19,10 @@
 
   <depend>roscpp</depend>
   <depend>rospy</depend>
-  <depend>roslaunch</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>std_msgs</depend>
 
   <exec_depend>velodyne_description</exec_depend>
   <exec_depend>velodyne_gazebo_plugins</exec_depend>
