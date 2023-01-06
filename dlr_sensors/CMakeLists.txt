@@ -152,6 +152,7 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
+# GPS libraries and executables
 add_library(${PROJECT_NAME}_fake_gps src/FakeGPS.cpp)
 add_dependencies(${PROJECT_NAME}_fake_gps ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_fake_gps ${catkin_LIBRARIES})
@@ -166,7 +167,12 @@ set_target_properties(${PROJECT_NAME}_fake_gps_sensor_class PROPERTIES OUTPUT_NA
 add_dependencies(${PROJECT_NAME}_fake_gps_sensor_class ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_fake_gps_sensor_class ${catkin_LIBRARIES} ${PROJECT_NAME}_fake_gps)
 
+add_executable(${PROJECT_NAME}_gps_listener src/gps_listener_node.cpp)
+set_target_properties(${PROJECT_NAME}_gps_listener PROPERTIES OUTPUT_NAME "gps_listener")
+add_dependencies(${PROJECT_NAME}_gps_listener ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_gps_listener ${catkin_LIBRARIES})
 
+# IMU libraries and executables
 add_library(${PROJECT_NAME}_fake_imu src/FakeIMU.cpp)
 add_dependencies(${PROJECT_NAME}_fake_imu ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_fake_imu ${catkin_LIBRARIES})
@@ -175,7 +181,6 @@ add_executable(${PROJECT_NAME}_fake_imu_sensor src/fake_imu_sensor_node.cpp)
 set_target_properties(${PROJECT_NAME}_fake_imu_sensor PROPERTIES OUTPUT_NAME "fake_imu_sensor")
 add_dependencies(${PROJECT_NAME}_fake_imu_sensor ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_fake_imu_sensor ${catkin_LIBRARIES} ${PROJECT_NAME}_fake_imu)
-
 
 #############
 ## Install ##

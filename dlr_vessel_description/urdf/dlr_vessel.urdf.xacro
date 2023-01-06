@@ -43,6 +43,7 @@
         </link>
 
         <joint name="${model_prefix}base_link_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <parent link="${model_prefix}base_footprint"/>
             <child link="${model_prefix}base_link"/>
         </joint>
@@ -57,7 +58,7 @@
             <!-- <static>true</static>   -->
         </gazebo>
         
-        <!-- Added the planar move plugin -->
+        <!-- Planar move plugin -->
         <gazebo>
             <plugin name="${model_prefix}planar_move_controller" filename="libdlr_gazebo_ros_planar_move.so">
                 <commandTopic>cmd_vel</commandTopic>
@@ -75,3 +76,4 @@
     <!-- <xacro:dlr_vessel model_prefix="$(arg model_name)_"/> -->
 
 </robot>
+
