@@ -4,8 +4,8 @@
 
     <!-- Velodyne to Laserscan arguments -->
     <arg name="scan_3d_topic" default="velodyne_points"/>
-    <arg name="min_height" default="-0.5"/>
-    <arg name="max_height" default="0.5"/>
+    <arg name="min_height" default="-1.5"/>
+    <arg name="max_height" default="1.5"/>
     <arg name="angle_min" default="-1.5707"/>
     <arg name="angle_max" default="1.5707"/>
     <arg name="angle_increment" default="0.00872664625 "/>
@@ -19,7 +19,6 @@
     <!-- Gmapping arguments -->
     <arg name="scan_topic" default="velodyne_2d_scan"/>
     <arg name="map_update_interval" default="5.0"/>
-    <arg name="maxUrange" default="16.0"/>
     <arg name="sigma" default="0.05"/>
     <arg name="kernelSize" default="1"/>
     <arg name="inverted_laser" default="false"/>
@@ -27,6 +26,11 @@
     <arg name="base_frame" default="$(arg vessel_id)_base_link"/>
     <arg name="map_frame" default="map"/>
     <arg name="odom_frame" default="odom"/>
+    <arg name="maxUrange" default="100.0"/>
+    <arg name="maxRange" default="130.0"/>
+    <!-- The maximum range of the sensor. If regions with no obstacles within the 
+         range of the sensor should appear as free space in the map, 
+         set maxUrange < maximum range of the real sensor (VLP-16 130 meters) <= maxRange.  -->
 
     <group ns="$(arg vessel_id)">
         <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan" output="screen">

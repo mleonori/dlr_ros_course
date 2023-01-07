@@ -28,5 +28,5 @@
         <node if="$(arg launch_rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config_file)" output="screen"/>
     </group>
 
-    
+    <include file="$(find dlr_gazebo_world)/launch/spawn_canal_bridges_world.launch"/>
 </launch>
