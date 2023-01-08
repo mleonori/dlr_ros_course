@@ -62,10 +62,6 @@ In the ros-google-cartographer docker execute the following commands:
 roslaunch cartographer_ros backpack_2d.launch
 ```
 
-
-
-
-
 Clone the dlr_ros_course repo
 git clone https://github.com/mleonori/dlr_ros_course.git
 
