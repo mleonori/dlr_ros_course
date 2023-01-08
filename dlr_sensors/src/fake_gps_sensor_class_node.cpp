@@ -29,6 +29,12 @@ class FakeGPSNode
         {
             if (active_)
             {
+                if ((pub_.getNumSubscribers() == 0))
+                {
+                    ROS_WARN_STREAM_THROTTLE(10, "GPS active, but no node is subscribed to \"" << 
+                                    nh_.resolveName("data") << "\" ROS topic.");
+                    return false;
+                }
                 sensor_msgs::NavSatFix msg;
                 msg.header.stamp = ros::Time().now();
                 msg.header.frame_id = frame_id_;

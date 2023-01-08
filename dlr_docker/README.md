@@ -76,4 +76,5 @@ git clone https://github.com/mleonori/dlr_ros_course.git
   export ROS_MASTER_URI=http://172.17.0.1:11311
   export ROS_IP=172.17.0.2
   
-
+source /home/catkin_ws/devel/setup.bash
+mon launch dlr_cart

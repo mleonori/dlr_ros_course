@@ -35,11 +35,12 @@
     </include> -->
 
     <!-- Run the fake gps node -->
-    <node pkg="dlr_sensors" type="fake_gps_sensor_class" name="gps" args="" output="screen" required="true" respawn="false">
+    <!-- <node pkg="dlr_sensors" type="fake_gps_sensor_class" name="gps" args="" output="screen" required="true" respawn="false"> -->
+    <node pkg="dlr_sensors" type="fake_gps_sensor_class_node.py" name="gps" args="" output="screen" required="true" respawn="false">
         <param name="frame_id" value="$(arg gps_frame_id)"/>
         <param name="position_covariance" value="$(arg gps_position_covariance)"/>
     </node>
 
-    <node pkg="dlr_sensors" type="fake_imu_sensor" name="imu" args="" output="screen" required="true" respawn="false"/>
+    <!-- <node pkg="dlr_sensors" type="fake_imu_sensor" name="imu" args="" output="screen" required="true" respawn="false"/> -->
 
 </launch>

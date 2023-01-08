@@ -83,4 +83,13 @@ RUN rm -rf cartographer_ros catkin_ws || true
 RUN apt-get update -y
 RUN apt-get upgrade -y
 RUN apt install wget net-tools -y
+RUN apt install ros-noetic-gazebo-dev ros-noetic-rosmon -y
+RUN apt install ros-noetic-gazebo-msgs -y
 
+RUN mkdir -p /home/catkin_ws/src && cd /home/catkin_ws/src && \
+    git clone https://github.com/mleonori/dlr_ros_course.git
+RUN cd /home/catkin_ws/src && wstool init src && \
+    wstool merge -t src https://raw.githubusercontent.com/cartographer-project/cartographer_ros/master/cartographer_ros.rosinstall && \
+    wstool update -t src
+
+RUN /bin/bash -c '. /opt/ros/noetic/setup.bash; cd /home/catkin_ws; catkin_make_isolated --install --use-ninja'

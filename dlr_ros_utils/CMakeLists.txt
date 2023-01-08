@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   roslaunch
+  tf2_ros
 )
 
 ## System dependencies are found with CMake's conventions
@@ -105,7 +106,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #    INCLUDE_DIRS include
 #  LIBRARIES dlr_sensors
-#  CATKIN_DEPENDS roscpp rospy
+ CATKIN_DEPENDS roscpp rospy tf2_ros
 #  DEPENDS system_lib
 )
 
@@ -149,6 +150,17 @@ include_directories(
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+
+# TF listener and broadcaster examples
+add_executable(${PROJECT_NAME}_tf_broadcaster src/tf_broadcaster.cpp)
+set_target_properties(${PROJECT_NAME}_tf_broadcaster PROPERTIES OUTPUT_NAME "tf_broadcaster")
+add_dependencies(${PROJECT_NAME}_tf_broadcaster ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_tf_broadcaster ${catkin_LIBRARIES})
+
+add_executable(${PROJECT_NAME}_tf_listener src/tf_listener.cpp)
+set_target_properties(${PROJECT_NAME}_tf_listener PROPERTIES OUTPUT_NAME "tf_listener")
+add_dependencies(${PROJECT_NAME}_tf_listener ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_tf_listener ${catkin_LIBRARIES})
 
 #############
 ## Install ##
