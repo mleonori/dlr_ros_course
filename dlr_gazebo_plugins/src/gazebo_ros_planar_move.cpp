@@ -277,9 +277,9 @@ void GazeboRosPlanarMove::publishOdometry(double step_time)
     tf::Vector3    vt(pose.Pos().X(), pose.Pos().Y(), pose.Pos().Z());
 
     tf::Transform base_footprint_to_odom(qt, vt);
-    transform_broadcaster_->sendTransform(
-        tf::StampedTransform(base_footprint_to_odom, current_time, odom_frame,
-            base_footprint_frame));
+    // transform_broadcaster_->sendTransform(
+    //     tf::StampedTransform(base_footprint_to_odom, current_time, odom_frame,
+    //         base_footprint_frame));
 
     // publish odom topic
     odom_.pose.pose.position.x = pose.Pos().X();
@@ -325,7 +325,7 @@ void GazeboRosPlanarMove::publishOdometry(double step_time)
     odom_.header.frame_id = odom_frame;
     odom_.child_frame_id = base_footprint_frame;
 
-    odometry_pub_.publish(odom_);
+    // odometry_pub_.publish(odom_);
 }
 
 GZ_REGISTER_MODEL_PLUGIN(GazeboRosPlanarMove)

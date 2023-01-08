@@ -1,0 +1,57 @@
+<launch>
+    <!-- Vessel arguments -->
+    <arg name="vessel_id" default="dlr_vessel"/>
+
+    <!-- Velodyne to Laserscan arguments -->
+    <arg name="scan_3d_topic" default="velodyne_points"/>
+    <arg name="min_height" default="-1.5"/>
+    <arg name="max_height" default="1.5"/>
+    <arg name="angle_min" default="-1.5707"/>
+    <arg name="angle_max" default="1.5707"/>
+    <arg name="angle_increment" default="0.00872664625 "/>
+    <arg name="scan_time" default="0.033"/>
+    <arg name="range_min" default="0.45"/>
+    <arg name="range_max" default="100.0"/>
+    <arg name="target_frame" default="velodyne"/>
+    <arg name="concurrency_level" default="0"/>
+    <arg name="use_inf" default="true"/>
+
+    <!-- Gmapping arguments -->
+    <arg name="scan_topic" default="velodyne_2d_scan"/>
+    <arg name="map_update_interval" default="5.0"/>
+    <arg name="sigma" default="0.05"/>
+    <arg name="kernelSize" default="1"/>
+    <arg name="inverted_laser" default="false"/>
+    <arg name="throttle_scans" default="1"/>
+    <arg name="base_frame" default="$(arg vessel_id)_base_link"/>
+    <arg name="map_frame" default="map"/>
+    <arg name="odom_frame" default="odom"/>
+    <arg name="maxUrange" default="100.0"/>
+    <arg name="maxRange" default="130.0"/>
+    <!-- The maximum range of the sensor. If regions with no obstacles within the 
+         range of the sensor should appear as free space in the map, 
+         set maxUrange < maximum range of the real sensor (VLP-16 130 meters) <= maxRange.  -->
+
+    <group ns="$(arg vessel_id)">
+        <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan" output="screen">
+            <remap from="cloud_in" to="$(arg scan_3d_topic)"/>
+            <remap from="scan" to="$(arg scan_topic)"/>
+            <param name="min_height" value="$(arg min_height)"/>
+            <param name="max_height" value="$(arg max_height)"/> 
+            <param name="angle_min" value="$(arg angle_min)"/>
+            <param name="angle_max" value="$(arg angle_max)"/>
+            <param name="angle_increment" value="$(arg angle_increment)"/>
+            <param name="scan_time" value="$(arg scan_time)"/>
+            <param name="range_min" value="$(arg range_min)"/>
+            <param name="range_max" value="$(arg range_max)"/>
+            <param name="target_frame" value="$(arg target_frame)"/>
+            <param name="concurrency_level" value="$(arg concurrency_level)"/>
+            <param name="use_inf" value="$(arg use_inf)"/>
+        </node>
+
+        <include file="$(find dlr_gmapping)/launch/gmapping.launch" pass_all_args="true"/>
+    </group>
+    
+
+</launch>
+

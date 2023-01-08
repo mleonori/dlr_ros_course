@@ -18,6 +18,7 @@
   <exec_depend>dlr_sensors</exec_depend>
   <exec_depend>dlr_ros_utils</exec_depend>
   <exec_depend>dlr_msgs</exec_depend>
+  <exec_depend>dlr_mapping</exec_depend>
 
   <export>
     <metapackage/>

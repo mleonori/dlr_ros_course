@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+
+  <name>dlr_cartographer</name>
+  <version>0.0.1</version>
+  <description>This is dlr_cartographer package. It launches google cartographer mapping</description>
+
+  <author email="mattialeonori26@gmail.com">Mattia Leonori</author>
+
+  <maintainer email="mattialeonori26@gmail.com">Mattia Leonori</maintainer>
+
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>rospy</depend>
+  <depend>roslaunch</depend>
+  <exec_depend>cartographer_ros</exec_depend>
+
+</package>

@@ -106,7 +106,7 @@ find_package(Eigen3 REQUIRED)
 catkin_package(
    INCLUDE_DIRS include
 #  LIBRARIES dlr_sensors
-#  CATKIN_DEPENDS roscpp rospy
+ CATKIN_DEPENDS roscpp rospy
 #  DEPENDS system_lib
 )
 
