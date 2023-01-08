@@ -9,7 +9,8 @@
         <node name="cartographer_node" pkg="cartographer_ros" type="cartographer_node" output="screen"
             args="-configuration_directory $(find dlr_cartographer)/config
                   -configuration_basename dlr_vessel_2d.lua">
-            <remap from="echoes" to="horizontal_laser_2d"/>
+            <!-- <remap from="echoes" to="horizontal_laser_2d"/> -->
+            <remap from="imu" to="imu/data"/>
         </node>
 
         <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros" 
