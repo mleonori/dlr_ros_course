@@ -325,7 +325,7 @@ void GazeboRosPlanarMove::publishOdometry(double step_time)
     odom_.header.frame_id = odom_frame;
     odom_.child_frame_id = base_footprint_frame;
 
-    odometry_pub_.publish(odom_);
+    // odometry_pub_.publish(odom_);
 }
 
 GZ_REGISTER_MODEL_PLUGIN(GazeboRosPlanarMove)
