@@ -1,0 +1,18 @@
+<launch>
+    <arg name="vessel_id" default="dlr_vessel"/>
+
+    <group ns="$(arg vessel_id)">
+        <node name="cartographer_node" pkg="cartographer_ros" type="cartographer_node" output="screen"
+            args="-configuration_directory $(find dlr_cartographer)/config
+                  -configuration_basename dlr_vessel_3d.lua">
+            <!-- <remap from="echoes" to="horizontal_laser_2d"/> -->
+            <remap from="imu" to="imu/data"/>
+            <remap from="points2" to="velodyne_points"/>
+            <remap from="scan" to="velodyne_2d_scan"/>
+        </node>
+
+        <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros" 
+              type="cartographer_occupancy_grid_node" args="-resolution 0.05" />
+    </group>
+
+</launch>
