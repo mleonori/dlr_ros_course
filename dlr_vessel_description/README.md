@@ -30,12 +30,10 @@ Available joint types fixed, revolute, continuous, floating
     <origin xyz="0 0 1" rpy="0 0 3.1416"/>
     <parent link="link1"/>
     <child link="link2"/>
-
-    <calibration rising="0.0"/>
     <dynamics damping="0.0" friction="0.0"/>
     <limit effort="30" velocity="1.0" lower="-2.2" upper="0.7" />
-    <safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" />
  </joint>
+ 
 <joint name="${model_prefix}base_link_joint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <parent link="${model_prefix}base_footprint"/>

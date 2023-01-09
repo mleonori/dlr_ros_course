@@ -31,3 +31,4 @@ if __name__ == '__main__':
         gps_sensor_pub.publish(nav_sat_fix_msg);
 
         loop_rate.sleep()
+

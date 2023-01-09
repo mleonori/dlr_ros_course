@@ -46,7 +46,6 @@ int main(int argc, char **argv)
             ROS_ERROR_STREAM(gps_activation_srv.response.message);
     }
 
-
     ros::Subscriber gps_sensor_sub = nh.subscribe("gps/data", 1000, GPSDataCallback);
 
     ros::spin();
