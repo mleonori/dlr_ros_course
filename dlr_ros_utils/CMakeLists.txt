@@ -162,6 +162,12 @@ set_target_properties(${PROJECT_NAME}_tf_listener PROPERTIES OUTPUT_NAME "tf_lis
 add_dependencies(${PROJECT_NAME}_tf_listener ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_tf_listener ${catkin_LIBRARIES})
 
+add_executable(${PROJECT_NAME}_time_example src/time_example.cpp)
+set_target_properties(${PROJECT_NAME}_time_example PROPERTIES OUTPUT_NAME "time_example")
+add_dependencies(${PROJECT_NAME}_time_example ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_time_example ${catkin_LIBRARIES})
+
+
 #############
 ## Install ##
 #############
