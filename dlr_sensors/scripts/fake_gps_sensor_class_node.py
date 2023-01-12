@@ -91,7 +91,7 @@ class FakeGPSNode:
 
 if __name__ == '__main__':
 
-    rospy.init_node("gps", anonymous=True)
+    rospy.init_node("gps", anonymous=False)
 
     gps_node = FakeGPSNode()
 

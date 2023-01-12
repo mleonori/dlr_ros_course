@@ -49,7 +49,7 @@ int main(int argc, char** argv)
     double speed = 0.001;
 
     sensor_msgs::NavSatFix nav_sat_fix_msg;
-    nav_sat_fix_msg.header.frame_id = "world";
+    nav_sat_fix_msg.header.frame_id = "gps_base_link";
     nav_sat_fix_msg.latitude = 52.25444;
     nav_sat_fix_msg.longitude = 13.31476;
 

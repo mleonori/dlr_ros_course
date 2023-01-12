@@ -16,6 +16,10 @@
     <arg name="concurrency_level" default="0"/>
     <arg name="use_inf" default="true"/>
 
+    <!-- GUI arguments -->
+    <arg name="launch_gui" default="false"/>
+    <arg name="gui_config" default="$(find dlr_gmapping)/config/gmapping.perspective"/>
+
     <!-- Gmapping arguments -->
     <arg name="scan_topic" default="velodyne_2d_scan"/>
     <arg name="map_update_interval" default="5.0"/>

@@ -7,7 +7,7 @@ if __name__ == '__main__':
     
     gps_sensor_pub = rospy.Publisher("gps/data", NavSatFix, queue_size=10)
 
-    rospy.init_node("fake_gps_node", anonymous=True)
+    rospy.init_node("fake_gps_node", anonymous=False)
 
     loop_rate = rospy.Rate(1)
 

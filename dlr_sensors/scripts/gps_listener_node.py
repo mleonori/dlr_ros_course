@@ -1,55 +1,47 @@
-#include <ros/ros.h>
-#include <sensor_msgs/NavSatFix.h>
-#include <std_srvs/SetBool.h>
+#!/usr/bin/env python3
 
-/**
- * This tutorial demonstrates simple receipt of messages over the ROS system.
- */
-void GPSDataCallback(const sensor_msgs::NavSatFix::ConstPtr& msg)
-{
-    ROS_INFO_STREAM("GPS Data received: latitude " << msg->latitude << " - longitude " << msg->longitude);
-}
+import rospy
+from sensor_msgs.msg import NavSatFix
+from std_srvs.srv import SetBool, SetBoolRequest
 
-int main(int argc, char **argv)
-{
-    // Initialize the ROS node
-    ros::init(argc, argv, "gps_logger");
+# This tutorial demonstrates simple receipt of messages over the ROS system.
 
-    // Declare the ROS node handle
-    ros::NodeHandle nh;
+def gps_data_callback(msg):
+    rospy.loginfo("GPS Data received: latitude " + str(msg.latitude) + " - longitude " + str(msg.longitude))
 
-    // Get the GPS activation service server name
-    std::string gps_activation_srv_name;
-    nh.param<std::string>("gps_activation_srv_name", gps_activation_srv_name, "gps/activate");
+if __name__ == '__main__':
 
-    // Define the GPS activation client
-    ros::ServiceClient gps_activation_client = nh.serviceClient<std_srvs::SetBool>(gps_activation_srv_name);
+    rospy.init_node("gps_listener_node", anonymous=False)
 
-    // Wait for the GPS activation service
-    ROS_WARN_STREAM("Waiting for \"" << nh.resolveName(gps_activation_srv_name) << "\" ROS service...");
-    gps_activation_client.waitForExistence();
-    ROS_INFO_STREAM("\"" << nh.resolveName(gps_activation_srv_name) << "\" ROS service available.");    
+    # Get the GPS activation service server name
+    gps_activation_srv_name = rospy.get_param("gps_activation_srv_name", "gps/activate")
 
-    // Activate the GPS
-    std_srvs::SetBool gps_activation_srv;
-    gps_activation_srv.request.data = true;
-    if (!gps_activation_client.call(gps_activation_srv))
-    {
-        ROS_ERROR("Error calling the GPS service activation");
-        return -1;
-    }
-    else
-    {
-        if (gps_activation_srv.response.success)
-            ROS_INFO_STREAM(gps_activation_srv.response.message);
-        else
-            ROS_ERROR_STREAM(gps_activation_srv.response.message);
-    }
+    try:
+        # Define the GPS activation client
+        gps_activation_client = rospy.ServiceProxy(gps_activation_srv_name, SetBool)
 
+        # Wait for the GPS activation service
+        rospy.logwarn("Waiting for \"" + rospy.resolve_name(gps_activation_srv_name) + "\" ROS service...")
+        gps_activation_client.wait_for_service()
+        rospy.loginfo("\"" + rospy.resolve_name(gps_activation_srv_name) + "\" ROS service available.")  
 
-    ros::Subscriber gps_sensor_sub = nh.subscribe("gps/data", 1000, GPSDataCallback);
+        # Activate the GPS
+        gps_activation_req = SetBoolRequest()
+        gps_activation_req.data = True
+        gps_activation_res = gps_activation_client(gps_activation_req)
 
-    ros::spin();
+        if gps_activation_res.success:
+            rospy.loginfo(gps_activation_res.message)
+        else:
+            rospy.logerr(gps_activation_res.message)
+            exit()
+    except rospy.ServiceException as e:
+        print("Service call failed: %s"%e)
+        rospy.logerr("Error calling the GPS service activation");
+        exit()
 
-    return 0;
-}
+    gps_sensor_sub = rospy.Subscriber("gps/data", NavSatFix, gps_data_callback, queue_size=10)
+
+    rospy.spin()
+
+    exit()

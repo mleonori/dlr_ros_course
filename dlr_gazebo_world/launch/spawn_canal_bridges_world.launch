@@ -29,7 +29,7 @@
             <arg name="urdf_filepath" value="$(find dlr_gazebo_world)/urdf/canal_bridge.urdf.xacro"/>
             <arg name="urdf_args" value=""/>
             <arg name="spawn_controllers" value="false"/>
-            <arg name="spawn_robot_state_publisher" value="true"/>
+            <arg name="spawn_robot_state_publisher" value="false"/>
         </include>
     </group>
 
@@ -57,7 +57,7 @@
             <arg name="urdf_filepath" value="$(find dlr_gazebo_world)/urdf/canal_bridge.urdf.xacro"/>
             <arg name="urdf_args" value=""/>
             <arg name="spawn_controllers" value="false"/>
-            <arg name="spawn_robot_state_publisher" value="true"/>
+            <arg name="spawn_robot_state_publisher" value="false"/>
         </include>
     </group>
 

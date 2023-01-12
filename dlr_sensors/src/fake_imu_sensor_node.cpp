@@ -22,7 +22,7 @@ class FakeIMUNode
         {
             sensor_msgs::Imu msg;
             msg.header.stamp = ros::Time().now();
-            msg.header.frame_id = "imu";
+            msg.header.frame_id = "imu_base_link";
             // Get quaterion
             msg.orientation.w = imu_driver_.getQuaternion().w();
             msg.orientation.x = imu_driver_.getQuaternion().x();

@@ -9,6 +9,8 @@
     <arg name="base_frame" default="base_link"/>
     <arg name="map_frame" default="map"/>
     <arg name="odom_frame" default="odom"/>
+    <arg name="launch_gui" default="false"/>
+    <arg name="gui_config" default="$(find dlr_gmapping)/config/gmapping.perspective"/>
 
     <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
         <remap from="scan" to="$(arg scan_topic)"/>
@@ -46,4 +48,7 @@
         <param name="lasamplerange" value="0.005"/>
         <param name="lasamplestep" value="0.005"/>
     </node>
+
+    <node if="$(arg launch_gui)" pkg="rqt_gui" type="rqt_gui" name="rqt_gui" 
+          args="--perspective-file $(arg gui_config)" output="screen"/>
 </launch>

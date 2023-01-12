@@ -35,12 +35,16 @@
     </include> -->
 
     <!-- Run the fake gps node -->
-    <!-- <node pkg="dlr_sensors" type="fake_gps_sensor_class" name="gps" args="" output="screen" required="true" respawn="false"> -->
-    <node pkg="dlr_sensors" type="fake_gps_sensor_class_node.py" name="gps" args="" output="screen" required="true" respawn="false">
+    <node pkg="dlr_sensors" type="fake_gps_sensor" name="gps" args="" output="screen" required="true" respawn="false">
+    <!-- <node pkg="dlr_sensors" type="fake_gps_sensor_class_node.py" name="gps" args="" output="screen" required="true" respawn="false"> -->
         <param name="frame_id" value="$(arg gps_frame_id)"/>
         <param name="position_covariance" value="$(arg gps_position_covariance)"/>
     </node>
 
-    <!-- <node pkg="dlr_sensors" type="fake_imu_sensor" name="imu" args="" output="screen" required="true" respawn="false"/> -->
+    <node pkg="dlr_sensors" type="fake_imu_sensor" name="imu" args="" output="screen" required="true" respawn="false"/>
 
+    <!-- Publish static transforms -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="vessel_gps_base_link_broadcaster" args="1 0 0.3 0 0 0 1 vessel_base_link gps_base_link" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="vessel_imu_base_link_broadcaster" args="0 0 0.3 0 0 0 1 vessel_base_link imu_base_link" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="vessel_another_frame_base_link_broadcaster" args="-1 1 0.5 1.2 0.1 -0.1 vessel_base_link another_frame" />
 </launch>
