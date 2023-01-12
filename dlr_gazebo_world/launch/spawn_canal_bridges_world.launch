@@ -1,11 +1,14 @@
 <?xml version="1.0"?>
 <launch>
 
+    <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find dlr_gazebo_world)/models"/>
+    <env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find dlr_gazebo_world)/models"/>
+
     <!-- General simulation parameters -->
     <arg name="launch_gazebo_gui" default="true"/>
     <arg name="launch_gazebo_paused" default="true"/>
     <arg name="launch_gazebo_world" default="true"/>
-    <arg name="gazebo_world" default="$(find dlr_gazebo_world)/worlds/canal_bridge.world"/>
+    <arg name="gazebo_world" default="$(find dlr_gazebo_world)/worlds/dlr_canal_bridge.world"/>
 
     <include if="$(arg launch_gazebo_world)" file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(arg gazebo_world)"/>
@@ -47,7 +50,7 @@
     <group ns="bridge3">
         <include file="$(find dlr_gazebo_world)/launch/spawn_urdf.launch">
             <arg name="model_name" value="canal_bridge3"/>
-            <arg name="x_init_pose" value="66"/>
+            <arg name="x_init_pose" value="61"/>
             <arg name="y_init_pose" value="80"/>
             <arg name="z_init_pose" value="0"/>
             <arg name="yaw_init_pose" value="0"/>

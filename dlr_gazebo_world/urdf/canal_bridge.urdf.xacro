@@ -30,14 +30,14 @@
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge_2.stl" scale="200 200 200"/>
+                    <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge_2.stl" scale="250 250 250"/>
                 </geometry>
                 <material name="White"/>
             </visual>
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge_2.stl" scale="1 1 1 "/>
+                    <mesh filename="package://dlr_gazebo_world/meshes/canal_bridge_2.stl" scale="250 250 250"/>
                 </geometry>
             </collision>
         </link>
