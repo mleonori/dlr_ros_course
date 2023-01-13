@@ -167,7 +167,9 @@ set_target_properties(${PROJECT_NAME}_time_example PROPERTIES OUTPUT_NAME "time_
 add_dependencies(${PROJECT_NAME}_time_example ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_time_example ${catkin_LIBRARIES})
 
-
+# catkin_install_python(PROGRAMS scripts/tf_listener.py scripts/teleop_twist_keyboard.py scripts/tf_broadcaster.py scripts/tf_listener.py
+#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
 #############
 ## Install ##
 #############
