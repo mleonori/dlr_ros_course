@@ -170,6 +170,10 @@ target_link_libraries(${PROJECT_NAME}_time_example ${catkin_LIBRARIES})
 # catkin_install_python(PROGRAMS scripts/tf_listener.py scripts/teleop_twist_keyboard.py scripts/tf_broadcaster.py scripts/tf_listener.py
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
+catkin_install_python(PROGRAMS
+  scripts/time_example.py scripts/tf_broadcaster.py scripts/tf_listener.py scripts/teleop_twist_keyboard.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 #############
 ## Install ##
 #############
