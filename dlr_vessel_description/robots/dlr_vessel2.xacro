@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dlr_vessel">
+
+    <!-- Model parameters -->
+    <xacro:arg name="model_name" default="dlr_vessel"/>
+
+    <!-- Include DLR vessel URDF file -->
+    <xacro:include filename="$(find dlr_vessel_description)/urdf/dlr_vessel.urdf.xacro"/>
+
+    <!-- Initialize DLR vessel macro -->
+    <xacro:dlr_vessel model_prefix="$(arg model_name)_"/>
+
+    <!-- Include Velodyne sensor -->
+    <xacro:include filename="$(find dlr_sensors)/robots/dlr_acq_campaign_sensors.xacro"/>
+    <xacro:dlr_sensor_support support_prefix="$(arg model_name)_sensor_support_"/>
+    
+    <!-- <joint name="$(arg model_name)_base_link_sensor_support_joint" type="fixed">
+        <origin xyz="9.75 0 2.20" rpy="0 0 0"/>
+        <parent link="$(arg model_name)_base_link"/>
+        <child link="$(arg model_name)_sensor_support_base_link"/>
+    </joint> -->
+    <joint name="$(arg model_name)_base_link_sensor_support_joint" type="revolute">
+        <axis xyz="0 0 1"/>
+        <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+        <origin xyz="9.75 0 2.20" rpy="0 0 0" />
+        <parent link="$(arg model_name)_base_link"/>
+        <child link="$(arg model_name)_sensor_support_base_link"/>
+    </joint>
+
+</robot>

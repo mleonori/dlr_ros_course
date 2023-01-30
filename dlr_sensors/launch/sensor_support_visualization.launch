@@ -2,20 +2,20 @@
 <launch>
 
     <!-- Vessel model arguments -->
-    <arg name="model_name" default="dlr_vessel"/>
-    <arg name="urdf_filepath" default="$(find dlr_vessel_description)/robots/dlr_vessel2.xacro"/>
+    <arg name="support_name" default="sensor_support"/>
+    <arg name="urdf_filepath" default="$(find dlr_sensors)/robots/dlr_acq_campaign_sensors.xacro"/>
     <arg name="urdf_args" default=""/>
 
     <!-- RViz arguments -->
-    <arg name="launch_rviz" default="false"/>
-    <arg name="rviz_config_file" default="$(find dlr_vessel_description)/rviz/vessel_visualization.rviz"/>
+    <arg name="launch_rviz" default="true"/>
+    <arg name="rviz_config_file" default="$(find dlr_sensors)/rviz/sensor_support.rviz"/>
     
     <!-- Load Robot description -->
     <param name="robot_description" command="$(find xacro)/xacro $(arg urdf_filepath) $(arg urdf_args)"/>
 
     <!-- Robot state and joint state publishers -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
-    <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" args="" output="screen"/>
+    <node name="joint_state_controller_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller" output="screen"/>
 
     <!-- Launch RViz -->
     <node if="$(arg launch_rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config_file)" output="screen"/>

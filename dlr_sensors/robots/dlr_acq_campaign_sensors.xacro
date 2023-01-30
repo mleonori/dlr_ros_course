@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dlr_vessel">
+
+    <xacro:macro name="dlr_sensor_support" params="support_prefix">
+
+        <!-- Model parameters -->
+        <!-- <xacro:arg name="support_prefix" default="sensor_support"/> -->
+
+        <link name="${support_prefix}base_link"/>
+
+        <xacro:property name="sensors_x_pos" value="0.40"/>
+
+        <!-- Include Stereolab Zed2 camera -->
+        <xacro:arg name="camera_name" default="${support_prefix}stereolab_zed2_camera" />
+        <xacro:arg name="enable_gazebo_plugin" default="true" />
+
+        <xacro:include filename="$(find dlr_sensors)/urdf/stereolabs_zed2.urdf.xacro" />
+        <xacro:stereolabs_zed2 camera_name_prefix="$(arg camera_name)1" parent="${support_prefix}base_link" enable_gazebo_plugin="$(arg enable_gazebo_plugin)">
+            <origin xyz="${sensors_x_pos+0.10} 0 0.15" rpy="0 0 0"/>
+        </xacro:stereolabs_zed2>
+
+        <xacro:stereolabs_zed2 camera_name_prefix="$(arg camera_name)2" parent="${support_prefix}base_link" enable_gazebo_plugin="$(arg enable_gazebo_plugin)">
+            <origin xyz="${sensors_x_pos+0.10} 0 0.35" rpy="0 0 0"/>
+        </xacro:stereolabs_zed2>
+
+        <!-- Include GNSS MTi 680G imu -->
+        <xacro:arg name="imu_name" default="${support_prefix}gnss_mti_680g_" />
+        <!-- <xacro:arg name="enable_gazebo_plugin" default="true" /> -->
+
+        <xacro:include filename="$(find dlr_sensors)/urdf/GNSS_MTi_680G.urdf.xacro" />
+        <xacro:gnss_mti_680g prefix="$(arg imu_name)" parent="${support_prefix}base_link">
+            <!-- <origin xyz="9.75 0 2.4" rpy="0 0 0"/> -->
+            <origin xyz="${sensors_x_pos} 0 0.35" rpy="0 0 0"/>
+        </xacro:gnss_mti_680g>
+
+        <!-- Include Velodyne sensor -->
+        <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
+        <xacro:VLP-16 parent="${support_prefix}base_link" name="velodyne" topic="velodyne_points" 
+            organize_cloud="false" hz="10" lasers="16" samples="1875" 
+            collision_range="0.3" min_range="0.9" max_range="130.0" 
+            noise="0.008" min_angle="-${M_PI/2}" max_angle="${M_PI/2}" gpu="true">
+            <origin xyz="${sensors_x_pos} 0 0.45" rpy="0 0 0"/>
+        </xacro:VLP-16>
+    
+    </xacro:macro>
+
+</robot>

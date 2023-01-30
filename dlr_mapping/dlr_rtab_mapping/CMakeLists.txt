@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(dlr_ros_utils)
+project(dlr_rtab_mapping)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -11,11 +11,10 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   roslaunch
-  tf2_ros
 )
 
 ## System dependencies are found with CMake's conventions
-find_package(Boost REQUIRED)
+# find_package(Boost REQUIRED COMPONENTS system)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -104,9 +103,9 @@ find_package(Boost REQUIRED)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#    INCLUDE_DIRS include
-#  LIBRARIES dlr_sensors
- CATKIN_DEPENDS roscpp rospy tf2_ros
+#  INCLUDE_DIRS include
+#  LIBRARIES dlr_vessel_description
+#  CATKIN_DEPENDS roscpp rospy
 #  DEPENDS system_lib
 )
 
@@ -117,13 +116,13 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-#   include
+# include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/dlr_sensors.cpp
+#   src/${PROJECT_NAME}/dlr_vessel_description.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -134,7 +133,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/dlr_sensors_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/dlr_vessel_description_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -150,33 +149,6 @@ include_directories(
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-
-# TF listener and broadcaster examples
-add_executable(${PROJECT_NAME}_tf_broadcaster src/tf_broadcaster.cpp)
-set_target_properties(${PROJECT_NAME}_tf_broadcaster PROPERTIES OUTPUT_NAME "tf_broadcaster")
-add_dependencies(${PROJECT_NAME}_tf_broadcaster ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(${PROJECT_NAME}_tf_broadcaster ${catkin_LIBRARIES})
-
-add_executable(${PROJECT_NAME}_tf_listener src/tf_listener.cpp)
-set_target_properties(${PROJECT_NAME}_tf_listener PROPERTIES OUTPUT_NAME "tf_listener")
-add_dependencies(${PROJECT_NAME}_tf_listener ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(${PROJECT_NAME}_tf_listener ${catkin_LIBRARIES})
-
-add_executable(${PROJECT_NAME}_time_example src/time_example.cpp)
-set_target_properties(${PROJECT_NAME}_time_example PROPERTIES OUTPUT_NAME "time_example")
-add_dependencies(${PROJECT_NAME}_time_example ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(${PROJECT_NAME}_time_example ${catkin_LIBRARIES})
-
-add_executable(${PROJECT_NAME}_tcp_receiver src/tcp_receiver.cpp)
-set_target_properties(${PROJECT_NAME}_tcp_receiver PROPERTIES OUTPUT_NAME "tcp_receiver")
-add_dependencies(${PROJECT_NAME}_tcp_receiver ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(${PROJECT_NAME}_tcp_receiver ${catkin_LIBRARIES})
-
-add_executable(${PROJECT_NAME}_tcp_sender src/tcp_sender.cpp)
-set_target_properties(${PROJECT_NAME}_tcp_sender PROPERTIES OUTPUT_NAME "tcp_sender")
-add_dependencies(${PROJECT_NAME}_tcp_sender ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(${PROJECT_NAME}_tcp_sender ${catkin_LIBRARIES})
-
 
 #############
 ## Install ##
@@ -218,7 +190,7 @@ target_link_libraries(${PROJECT_NAME}_tcp_sender ${catkin_LIBRARIES})
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_dlr_sensors.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_dlr_vessel_description.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
