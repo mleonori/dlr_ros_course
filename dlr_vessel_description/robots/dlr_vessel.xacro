@@ -20,11 +20,11 @@
     </xacro:VLP-16>
 
     <!-- Include Stereolab Zed2 camera -->
-    <xacro:arg name="camera_name" default="$(arg model_name)_stereolab_zed2_camera0" />
+    <xacro:arg name="camera_name" default="stereolab_zed2_camera0" />
     <xacro:arg name="enable_gazebo_plugin" default="true" />
 
     <xacro:include filename="$(find dlr_sensors)/urdf/stereolabs_zed2.urdf.xacro" />
-    <xacro:stereolabs_zed2 camera_name_prefix="$(arg camera_name)" parent="$(arg model_name)_base_link" enable_gazebo_plugin="$(arg enable_gazebo_plugin)">
+    <xacro:stereolabs_zed2 prefix="$(arg model_name)" camera_name="$(arg camera_name)" parent="$(arg model_name)_base_link" enable_gazebo_plugin="$(arg enable_gazebo_plugin)">
         <origin xyz="9.75 0 2.35" rpy="0 0 0"/>
     </xacro:stereolabs_zed2>
 

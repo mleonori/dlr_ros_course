@@ -2,7 +2,8 @@
 
 <robot name="stereolabs_zed2" xmlns:xacro="http://wiki.ros.org/xacro">
 
-    <xacro:macro name="stereolabs_zed2" params="camera_name_prefix:=zed 
+    <xacro:macro name="stereolabs_zed2" params="prefix:=''
+                                                camera_name:=zed 
                                                 parent 
                                                 *origin 
                                                 format:=R8G8B8 
@@ -19,7 +20,8 @@
                 izz="${(m*(w*w+h*h))/12}"/>
     </xacro:macro>
 
-    <xacro:macro name="stereolabs_zed2_gazebo" params="camera_name_prefix 
+    <xacro:macro name="stereolabs_zed2_gazebo" params="prefix
+                                                       camera_name
                                                        fps 
                                                        baseline 
                                                        hfov 
@@ -29,7 +31,7 @@
                                                        near 
                                                        far">
                                                        
-        <gazebo reference="${camera_name_prefix}_base_link">
+        <gazebo reference="${prefix}_${camera_name}_base_link">
             <visual>
                 <material>
                     <ambient>0.35 0.35 0.35 1.0</ambient>
@@ -38,8 +40,8 @@
                     <emissive>0.0 0.0 0.0 0.0</emissive>
                 </material>
             </visual>
-            <sensor name="${camera_name_prefix}color" type="camera">
-                <camera name="${camera_name_prefix}">
+            <sensor name="${prefix}_${camera_name}color" type="camera">
+                <camera name="${prefix}_${camera_name}">
                 <horizontal_fov>${hfov}</horizontal_fov>
                 <image>
                     <width>${width}</width>
@@ -79,19 +81,19 @@
                         <stddev>0.007</stddev>
                     </noise>
                 </camera>
-                <plugin name="${camera_name_prefix}_plugin" filename="libgazebo_ros_openni_kinect.so">
+                <plugin name="${prefix}_${camera_name}_plugin" filename="libgazebo_ros_openni_kinect.so">
                     <baseline>${baseline}</baseline>
                     <alwaysOn>true</alwaysOn>
                     <!-- Keep this zero, update_rate in the parent <sensor> tag
                         will control the frame rate. -->
                     <updateRate>0.0</updateRate>
-                    <cameraName>${camera_name_prefix}</cameraName>
-                    <imageTopicName>/${camera_name_prefix}/color/image_raw</imageTopicName>
-                    <cameraInfoTopicName>/${camera_name_prefix}/color/camera_info</cameraInfoTopicName>
-                    <depthImageTopicName>/${camera_name_prefix}/depth/image_raw</depthImageTopicName>
-                    <depthImageCameraInfoTopicName>/${camera_name_prefix}/depth/camera_info</depthImageCameraInfoTopicName>
-                    <pointCloudTopicName>/${camera_name_prefix}/depth/points</pointCloudTopicName>
-                    <frameName>/${camera_name_prefix}_depth_optical_frame</frameName>
+                    <cameraName>${prefix}_${camera_name}</cameraName>
+                    <imageTopicName>/${prefix}/${camera_name}/color/image_raw</imageTopicName>
+                    <cameraInfoTopicName>/${prefix}/${camera_name}/color/camera_info</cameraInfoTopicName>
+                    <depthImageTopicName>/${prefix}/${camera_name}/depth/image_raw</depthImageTopicName>
+                    <depthImageCameraInfoTopicName>/${prefix}/${camera_name}/depth/camera_info</depthImageCameraInfoTopicName>
+                    <pointCloudTopicName>/${prefix}/${camera_name}/depth/points</pointCloudTopicName>
+                    <frameName>/${prefix}_${camera_name}_depth_optical_frame</frameName>
                     <pointCloudCutoff>${near}</pointCloudCutoff>
                     <pointCloudCutoffMax>${far}</pointCloudCutoffMax>
                     <distortionK1>0</distortionK1>
@@ -110,13 +112,13 @@
     </xacro:macro>
         
         <xacro:property name="baseline" value="0.12" />
-        <joint name="${camera_name_prefix}_base_joint" type="fixed">
+        <joint name="${prefix}_${camera_name}_base_joint" type="fixed">
             <xacro:insert_block name="origin" />
             <parent link="${parent}"/>
-            <child link="${camera_name_prefix}_base_link" />
+            <child link="${prefix}_${camera_name}_base_link" />
         </joint>
 
-        <link name="${camera_name_prefix}_base_link">
+        <link name="${prefix}_${camera_name}_base_link">
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
@@ -140,52 +142,53 @@
         </link>
 
         <!-- Left camera -->
-        <joint name="${camera_name_prefix}_camera_left_joint" type="fixed">
+        <joint name="${prefix}_${camera_name}_camera_left_joint" type="fixed">
             <origin xyz="0.0 0.06 0.0" rpy="0.0 0.0 0.0" />
-            <parent link="${camera_name_prefix}_base_link" />
-            <child link="${camera_name_prefix}_left_camera_frame" />
+            <parent link="${prefix}_${camera_name}_base_link" />
+            <child link="${prefix}_${camera_name}_left_camera_frame" />
         </joint>
 
-        <link name="${camera_name_prefix}_left_camera_frame"/>
+        <link name="${prefix}_${camera_name}_left_camera_frame"/>
 
-        <joint name="${camera_name_prefix}_camera_left_optical_joint" type="fixed">
+        <joint name="${prefix}_${camera_name}_camera_left_optical_joint" type="fixed">
             <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
-            <parent link="${camera_name_prefix}_left_camera_frame" />
-            <child link="${camera_name_prefix}_left_camera_optical_frame" />
+            <parent link="${prefix}_${camera_name}_left_camera_frame" />
+            <child link="${prefix}_${camera_name}_left_camera_optical_frame" />
         </joint>
 
-        <link name="${camera_name_prefix}_left_camera_optical_frame"/>
+        <link name="${prefix}_${camera_name}_left_camera_optical_frame"/>
 
         <!-- Right camera-->
-        <joint name="${camera_name_prefix}_camera_right_joint" type="fixed">
+        <joint name="${prefix}_${camera_name}_camera_right_joint" type="fixed">
             <origin xyz="0.0 -0.06 0.0" rpy="0.0 0.0 0.0" />
-            <parent link="${camera_name_prefix}_base_link" />
-            <child link="${camera_name_prefix}_right_camera_frame" />
+            <parent link="${prefix}_${camera_name}_base_link" />
+            <child link="${prefix}_${camera_name}_right_camera_frame" />
         </joint>
-        <link name="${camera_name_prefix}_right_camera_frame"/>
-        <joint name="${camera_name_prefix}_camera_right_optical_joint" type="fixed">
+        <link name="${prefix}_${camera_name}_right_camera_frame"/>
+        <joint name="${prefix}_${camera_name}_camera_right_optical_joint" type="fixed">
             <origin xyz="0.0 0 0.0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
-            <parent link="${camera_name_prefix}_right_camera_frame" />
-            <child link="${camera_name_prefix}_right_camera_optical_frame" />
+            <parent link="${prefix}_${camera_name}_right_camera_frame" />
+            <child link="${prefix}_${camera_name}_right_camera_optical_frame" />
         </joint>
-        <link name="${camera_name_prefix}_right_camera_optical_frame"/>
+        <link name="${prefix}_${camera_name}_right_camera_optical_frame"/>
         <!-- Depth image-->
-        <joint name="${camera_name_prefix}_depth_joint" type="fixed">
+        <joint name="${prefix}_${camera_name}_depth_joint" type="fixed">
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
-            <parent link="${camera_name_prefix}_base_link" />
-            <child link="${camera_name_prefix}_depth_frame" />
+            <parent link="${prefix}_${camera_name}_base_link" />
+            <child link="${prefix}_${camera_name}_depth_frame" />
         </joint>
-        <link name="${camera_name_prefix}_depth_frame"/>
-        <joint name="${camera_name_prefix}_depth_optical_joint" type="fixed">
+        <link name="${prefix}_${camera_name}_depth_frame"/>
+        <joint name="${prefix}_${camera_name}_depth_optical_joint" type="fixed">
             <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
-            <parent link="${camera_name_prefix}_depth_frame" />
-            <child link="${camera_name_prefix}_depth_optical_frame" />
+            <parent link="${prefix}_${camera_name}_depth_frame" />
+            <child link="${prefix}_${camera_name}_depth_optical_frame" />
         </joint>
-        <link name="${camera_name_prefix}_depth_optical_frame"/>
+        <link name="${prefix}_${camera_name}_depth_optical_frame"/>
 
         <xacro:if value="${enable_gazebo_plugin}">
             <xacro:stereolabs_zed2_gazebo
-                camera_name_prefix="${camera_name_prefix}"
+                prefix="${prefix}"
+                camera_name="${camera_name}"
                 hfov="1.2217"
                 baseline="${baseline}"
                 fps="30"

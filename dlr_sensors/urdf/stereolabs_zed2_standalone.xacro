@@ -17,7 +17,7 @@
     <link name="$(arg world_frame)"/>
 
     <!-- Camera macro -->
-    <xacro:stereolabs_zed2 camera_name_prefix="$(arg camera_name)" parent="$(arg world_frame)" enable_gazebo_plugin="$(arg enable_gazebo_plugin)">
+    <xacro:stereolabs_zed2 camera_name="$(arg camera_name)" parent="$(arg world_frame)" enable_gazebo_plugin="$(arg enable_gazebo_plugin)">
         <origin xyz="$(arg xyz)" rpy="$(arg rpy)"/>
     </xacro:stereolabs_zed2>
 
